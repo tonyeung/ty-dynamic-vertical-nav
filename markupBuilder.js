@@ -1,4 +1,4 @@
-function markUpBuilder(menuData, template, isRecurse){
+function markupBuilder(menuData, template, isRecurse){
   var result = [];
   var mergedTemplate = template;
   var displayTopLevelNode = hasTopLevelNode(isRecurse, menuData.text);
@@ -26,7 +26,7 @@ function markUpBuilder(menuData, template, isRecurse){
           result.push('<ul>');
         
           for (var children in menuData[propertyName]) {
-            var subMenu = markUpBuilder(menuData[propertyName][children], template, true);
+            var subMenu = markupBuilder(menuData[propertyName][children], template, true);
             result.push(subMenu);
           }
         
