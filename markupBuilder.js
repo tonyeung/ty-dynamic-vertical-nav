@@ -1,5 +1,56 @@
+// Code goes here
 
-function menuBuilder(menuData, template, isRecurse){
+var tree = {
+  text : "Parent",
+  url: '/decendants/Child1',
+  children: [{
+    text : "Child1",
+    url: '/decendants/Child1',
+    children: []
+    },{
+    text: "Child2",
+    url: '/decendants/Child2',
+    children: [{
+      text : "Grandchild1",
+      url: '/decendants/Grandchild1',
+      children: []
+      },{
+      text : "Grandchild2",
+      url: '/decendants/Grandchild2',
+      children: []
+      },{
+      text : "Grandchild3",
+      url: '/decendants/Grandchild3',
+      children: []
+    }]
+    },{
+    text: "Child3",
+    url: '/decendants/Child3',
+    children: [{
+      text : "Grandchild4",
+      url: '/decendants/Grandchild4',
+      children: []
+      },{
+      text : "Grandchild5",
+      url: '/decendants/Grandchild5',
+      children: []
+      },{
+      text : "Grandchild6",
+      url: '/decendants/Grandchild6',
+      children: []
+    }]
+  }]
+};
+    
+var rawData = [];
+    
+$(document).ready(function(){
+  var output = markUpBuilder(tree, '<li><a href="url">text</a></li>');
+  
+  $('.content').html(output);
+});
+
+function markUpBuilder(menuData, template, isRecurse){
   var result = [];
   var mergedTemplate = template;
   var displayTopLevelNode = hasTopLevelNode(isRecurse, menuData.text);
@@ -27,7 +78,7 @@ function menuBuilder(menuData, template, isRecurse){
           result.push('<ul>');
         
           for (var children in menuData[propertyName]) {
-            var subMenu = menuBuilder(menuData[propertyName][children], template, true);
+            var subMenu = markUpBuilder(menuData[propertyName][children], template, true);
             result.push(subMenu);
           }
         
